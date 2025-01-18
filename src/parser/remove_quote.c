@@ -6,12 +6,11 @@
 /*   By: sishizaw <sishizaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 20:45:13 by karai             #+#    #+#             */
-/*   Updated: 2025/01/15 20:24:22 by sishizaw         ###   ########.fr       */
+/*   Updated: 2025/01/18 07:18:43 by sishizaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "linked_list.h"
-#include "parser.h"
+#include "../../include/parser.h"
 
 size_t	remove_quote_get_newlen(char *str)
 {
@@ -97,18 +96,4 @@ char	*remove_quote(char *str)
 	return (new_str);
 }
 
-t_linked_list	linked_list_remove_quote(t_linked_list *list_head)
-{
-	t_linked_list	*ptr_temp;
 
-	ptr_temp = list_head->next;
-	while (ptr_temp)
-	{
-		if (ptr_temp->token_type == TYPE_COMMAND)
-		{
-			ptr_temp->content = remove_quote(ptr_temp->content);
-		}
-		ptr_temp = ptr_temp->next;
-	}
-	return *list_head;  // list_headの値を返す
-}

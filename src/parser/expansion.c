@@ -6,12 +6,11 @@
 /*   By: sishizaw <sishizaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 08:37:11 by karai             #+#    #+#             */
-/*   Updated: 2025/01/15 20:15:15 by sishizaw         ###   ########.fr       */
+/*   Updated: 2025/01/18 13:22:24 by sishizaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "parser.h"
+#include "../../include/parser.h"
 
 bool	is_name_character(char c)
 {
@@ -45,19 +44,8 @@ char	*get_env_str(char *str, size_t *len)
 		i += 1;
 	}
 	env_str[i] = '\0';
+	printf("Extracted environment variable name: %s, Length: %zu\n", env_str, *len);
 	return (env_str);
-}
-
-void	ft_strcpy(char *dst, char *src)
-{
-	if (dst == NULL || src == NULL)
-		return ;
-	while (*src)
-	{
-		*dst = *src;
-		dst += 1;
-		src += 1;
-	}
 }
 
 char	*replace_to_env_val(char *str, char *env_str)
@@ -84,6 +72,8 @@ char	*replace_to_env_val(char *str, char *env_str)
 	{
 		if (*str == '$' && strncmp(str + 1, env_str, env_str_len) == 0)
 		{
+			// デバッグ情報を追加
+            printf("Replacing $%s with %s\n", env_str, env_val ? env_val : "(NULL)");
 			ft_strcpy(&new_str[i], env_val);
 			i += env_val_len;
 			str += (env_str_len + 1);
@@ -117,6 +107,8 @@ char	*expansion(char *str)
 	{
 		if (str[i] == '$')
 		{
+			// デバッグ情報を追加
+            printf("Found $ at position %zu\n", i);
 			if (!(str[i + 1] == '\0' || is_blank(str[i + 1])))
 			{
 				env_str = get_env_str(&str[i + 1], &len);
@@ -129,12 +121,3 @@ char	*expansion(char *str)
 	return (str);
 }
 
-// int	main(void)
-// {
-// 	char	*converted_str;
-// 	char	*str;
-
-// 	str = strdup("dsfjd  $oo  $USER# adfa $USER $AAA");
-// 	converted_str = expansion(str);
-// 	printf("%s\n", converted_str);
-// }

@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Iinclude -I../libft
 
 # Source files and object files
-SRC = expansion.c history.c linked_list.c parser.c parser_utils.c remove_quote.c tokenize.c unified_test.c
+SRC = expansion.c linked_list.c parser.c remove_quote.c tokenize.c utils.c main.c
 OBJ = $(SRC:.c=.o)
 
 # Target executable
